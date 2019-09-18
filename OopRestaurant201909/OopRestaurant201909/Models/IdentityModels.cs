@@ -25,6 +25,8 @@ namespace OopRestaurant201909.Models
         {
         }
 
+        public DbSet<Category> Categories { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
