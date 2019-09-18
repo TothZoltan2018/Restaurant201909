@@ -14,7 +14,7 @@ namespace OopRestaurant201909
         /// <summary>
         /// Az Id nevbol a CodeFirst tudja, hogy ez majd primary key lesz
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; set; } 
 
         /// <summary>
         /// Az etel kategoria neve
