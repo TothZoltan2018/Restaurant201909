@@ -172,9 +172,11 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MenuItemsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MenuItem.cs" />
     <Compile Include="Migrations\201909181422591_InitialCreate.cs" />
     <Compile Include="Migrations\201909181422591_InitialCreate.Designer.cs">
       <DependentUpon>201909181422591_InitialCreate.cs</DependentUpon>
@@ -182,6 +184,10 @@
     <Compile Include="Migrations\201909181913290_Adding Category Table.cs" />
     <Compile Include="Migrations\201909181913290_Adding Category Table.Designer.cs">
       <DependentUpon>201909181913290_Adding Category Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909190725592_adding MenuItem table.cs" />
+    <Compile Include="Migrations\201909190725592_adding MenuItem table.Designer.cs">
+      <DependentUpon>201909190725592_adding MenuItem table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -252,6 +258,11 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\MenuItems\Create.cshtml" />
+    <Content Include="Views\MenuItems\Delete.cshtml" />
+    <Content Include="Views\MenuItems\Details.cshtml" />
+    <Content Include="Views\MenuItems\Edit.cshtml" />
+    <Content Include="Views\MenuItems\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -275,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909181913290_Adding Category Table.resx">
       <DependentUpon>201909181913290_Adding Category Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909190725592_adding MenuItem table.resx">
+      <DependentUpon>201909190725592_adding MenuItem table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
