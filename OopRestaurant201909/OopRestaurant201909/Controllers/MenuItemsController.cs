@@ -18,7 +18,8 @@ namespace OopRestaurant201909.Controllers
         // GET: MenuItems
         public ActionResult Index()
         {
-            return View(db.MenuItems.ToList());
+            //Az Include nelkul nem tolti be a MenuItem-be a Category erteket
+            return View(db.MenuItems.Include(x => x.Category).ToList());
         }
 
         // GET: MenuItems/Details/5
