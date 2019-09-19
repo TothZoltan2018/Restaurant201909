@@ -189,6 +189,10 @@
     <Compile Include="Migrations\201909190725592_adding MenuItem table.Designer.cs">
       <DependentUpon>201909190725592_adding MenuItem table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909191255453_Perhaps this moves the DB to SQLExpress.cs" />
+    <Compile Include="Migrations\201909191255453_Perhaps this moves the DB to SQLExpress.Designer.cs">
+      <DependentUpon>201909191255453_Perhaps this moves the DB to SQLExpress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -289,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909190725592_adding MenuItem table.resx">
       <DependentUpon>201909190725592_adding MenuItem table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909191255453_Perhaps this moves the DB to SQLExpress.resx">
+      <DependentUpon>201909191255453_Perhaps this moves the DB to SQLExpress.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
