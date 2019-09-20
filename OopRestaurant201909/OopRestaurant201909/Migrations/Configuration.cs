@@ -22,6 +22,7 @@ namespace OopRestaurant201909.Migrations
             context.Categories.AddOrUpdate( x => x.Name, new Category(name: "Pizzák"));
             context.Categories.AddOrUpdate(x => x.Name, new Category(name: "Italok"));
             context.Categories.AddOrUpdate(x => x.Name, new Category(name: "Desszertek"));
+            context.SaveChanges();
             
             var pizzaCategory = context.Categories.Single(x => x.Name == "Pizzák");
                         
@@ -29,7 +30,8 @@ namespace OopRestaurant201909.Migrations
                 new MenuItem(name: "Margarita", description: "Mozzarella, paradicsomszósz", price: 100, category: pizzaCategory));
             context.MenuItems.AddOrUpdate(x => x.Name,
                 new MenuItem(name: "Hawaii", description: "Sonka, ananász, mozzarella, paradicsomszósz", price: 100, category: pizzaCategory));
-
+            //Ide mar nem kotelezo...
+            context.SaveChanges();
         }
     }
 }
