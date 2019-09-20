@@ -3,7 +3,7 @@ namespace OopRestaurant201909.Migrations
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using System.Linq;    
 
     internal sealed class Configuration : DbMigrationsConfiguration<OopRestaurant201909.Models.ApplicationDbContext>
     {
@@ -18,6 +18,18 @@ namespace OopRestaurant201909.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+
+            context.Categories.AddOrUpdate( x => x.Name, new Category(name: "Pizzák"));
+            context.Categories.AddOrUpdate(x => x.Name, new Category(name: "Italok"));
+            context.Categories.AddOrUpdate(x => x.Name, new Category(name: "Desszertek"));
+            
+            var pizzaCategory = context.Categories.Single(x => x.Name == "Pizzák");
+                        
+            context.MenuItems.AddOrUpdate(x => x.Name,
+                new MenuItem(name: "Margarita", description: "Mozzarella, paradicsomszósz", price: 100, category: pizzaCategory));
+            context.MenuItems.AddOrUpdate(x => x.Name,
+                new MenuItem(name: "Hawaii", description: "Sonka, ananász, mozzarella, paradicsomszósz", price: 100, category: pizzaCategory));
+
         }
     }
 }
