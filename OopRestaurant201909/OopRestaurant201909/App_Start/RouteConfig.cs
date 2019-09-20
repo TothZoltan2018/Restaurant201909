@@ -16,7 +16,8 @@ namespace OopRestaurant201909
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                //TZ: Atirtuk a controller-t home-rol, ami a project letrehozasakor legeneralt oldalt tolti be
+                defaults: new { controller = "MenuItems", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
