@@ -18,7 +18,7 @@ namespace OopRestaurant201909.Controllers
         // GET: MenuItems
         public ActionResult Index()
         {
-            //Az Include nelkul nem tolti be a MenuItem-be a Category erteket
+            //Az Include nelkul nem tolti be a MenuItem-be a Category erteket, mert az egy masik tablaban van
             return View(db.MenuItems.Include(x => x.Category).ToList());
         }
 
@@ -72,6 +72,20 @@ namespace OopRestaurant201909.Controllers
             {
                 return HttpNotFound();
             }
+
+            //Ahhoz, hogy legyen, be kell toltenunk a menuItem Category property-jet,
+            //amit magatol az EF nem tolt be
+            db.Entry(menuItem)
+                .Reference(x => x.Category)
+                .Load();
+
+            //Hogy be tudjuk allitani a lenyilot, ezert megadjuk az aktualis Category azonositojat
+            menuItem.CategoryId = menuItem.Category.Id;            
+            //Lekuldjuk a Categories adatbazistabla tartalmat (db.Categories.ToList()),
+            //megadjuk, hogy melyik mezo azonositja a sort, es adja azt az erteket, ami a a vegeredmeny (Id)
+            //megadjuk, hogy a lenyilo egyes soraiba melyik property (oszlop) ertekei keruljenek. (Name)
+            menuItem.AssignableCategories = new SelectList(db.Categories.OrderBy(x => x.Name).ToList(), "id", "Name");
+
             return View(menuItem);
         }
 
@@ -79,12 +93,25 @@ namespace OopRestaurant201909.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price")] MenuItem menuItem)
+        [ValidateAntiForgeryToken]//Be kell engedni a lenyilo altal kivalasztott azonositot is:CategoryId 
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,CategoryId")] MenuItem menuItem)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(menuItem).State = EntityState.Modified;
+                var category = db.Categories.Find(menuItem.CategoryId);
+
+                //A html formrol jovo adatokat bemutatjuk az adatbazisnak
+                db.MenuItems.Attach(menuItem);
+
+                //az adatbazissal kaocsolatos dolgok eleresehez kell az entry
+                var entry = db.Entry(menuItem);
+
+                //ennek segitsegevel betoltjuk a Category tabla adatait a menuItem.Category property-be
+                entry.Reference(x => x.Category).Load();
+
+                //majd felulirjuk azzal, ami bejott a html formon
+                menuItem.Category = category;
+                entry.State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
