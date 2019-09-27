@@ -9,36 +9,42 @@
 
 </head>
 <body>
+    @* Bootstrap navbar-t hasznal az ASP.NET MVC alkalmazas template a felso menu kialakitasara (A sotetszurke hatteru sav)*@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                @* a home link es a hamburger menu *@
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">@* hamburger menu *@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("TZ Restaurant201909", "Index", "MenuItems", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("TZ Restaurant201909", "Index", "MenuItems", new { area = "" }, new { @class = "navbar-brand" }) @* home link *@
             </div>
             <div class="navbar-collapse collapse">
+                @* a menusav azon resze, ami eltunik, ha jon a hamburger menu *@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Étlap", "Index", "MenuItems")</li>
+                    @if (Request.IsAuthenticated)
+                    {@*A kategoriak link csak akkor latszik, ha a felhasznalo be van jelentkezve*@
                     <li>@Html.ActionLink("Kategóriák", "Index", "Categories")</li>
-                    @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                }
+                @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")@** ez a resz mutatja a bejelentkezessel kapcsolatos linkeket *@
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - TZ Restaurant201909</p>
-        </footer>
-    </div>
+    </div>@* Bootstrap navbar*@
+            <div class="container body-content">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - TZ Restaurant201909</p>
+                </footer>
+            </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
+        </body>
+        </html>

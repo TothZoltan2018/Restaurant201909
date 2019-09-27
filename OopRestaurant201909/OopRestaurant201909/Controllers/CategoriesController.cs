@@ -11,6 +11,7 @@ using OopRestaurant201909.Models;
 
 namespace OopRestaurant201909.Controllers
 {
+    [Authorize] //Csak bejelentkezett felhasznalokat szolgal ki
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

@@ -11,7 +11,7 @@ using Microsoft.Owin.Security;
 using OopRestaurant201909.Models;
 
 namespace OopRestaurant201909.Controllers
-{
+{//Jelszo: 123456aA#
     [Authorize]
     public class AccountController : Controller
     {
