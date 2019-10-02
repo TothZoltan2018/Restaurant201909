@@ -1,5 +1,4 @@
-﻿@model OopRestaurant201909.MenuItem
-
+﻿@model OopRestaurant201909.Models.MenuItem
 @{
     ViewBag.Title = "Edit";
 }
@@ -10,7 +9,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>MenuItem</h4>
         <hr />

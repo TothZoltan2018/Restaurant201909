@@ -1,4 +1,4 @@
-﻿@model OopRestaurant201909.MenuItem
+﻿@model OopRestaurant201909.Models.MenuItem
 
 @{
     ViewBag.Title = "Delete";
@@ -37,7 +37,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

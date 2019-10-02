@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace OopRestaurant201909
+namespace OopRestaurant201909.Models
 {
     /// <summary>
     /// Az etlaon szereplo tetelek koxul egynek az adatait tartalmazo osztaly

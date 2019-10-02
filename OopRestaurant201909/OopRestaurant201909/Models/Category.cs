@@ -4,7 +4,7 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.ComponentModel;
 
-namespace OopRestaurant201909
+namespace OopRestaurant201909.Models
 {
     /// <summary>
     /// Az etelek kategoriajat tartalmazo osztaly
