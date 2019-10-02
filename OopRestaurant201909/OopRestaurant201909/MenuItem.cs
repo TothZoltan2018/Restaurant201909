@@ -5,6 +5,7 @@ using System.Web.Services.Protocols;
 using System.ComponentModel;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace OopRestaurant201909
 {
@@ -27,10 +28,19 @@ namespace OopRestaurant201909
         public MenuItem() { }
 
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Ezt a mezőt kötelező kitölteni!")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Ezt a mezőt kötelező kitölteni!")]
         public string Description { get; set; }
+
+        [Range(1, 100000, ErrorMessage = "Hibás ár!")] //Ez csak az urlaprol erkezo adatkora ervenyes, azaz adatbazisba nem irodik be ez a megszoritas
         public int Price { get; set; }
+
+        [Required(ErrorMessage = "Ezt a mezőt kötelező kitölteni!")]
         public Category Category { get; set; }
+
         /// <summary>
         /// A lenyilo lista kivalasztott elemenek az azonositoja reszere
         /// </summary>
