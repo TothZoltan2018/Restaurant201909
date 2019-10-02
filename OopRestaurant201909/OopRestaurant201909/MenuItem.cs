@@ -30,15 +30,20 @@ namespace OopRestaurant201909
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Ezt a mezőt kötelező kitölteni!")]
+        [Display(Name = "Megnevezés")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Ezt a mezőt kötelező kitölteni!")]
+        [Display(Name = "Leírás")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         [Range(1, 100000, ErrorMessage = "Hibás ár!")] //Ez csak az urlaprol erkezo adatkora ervenyes, azaz adatbazisba nem irodik be ez a megszoritas
+        [Display(Name = "Ár")]
         public int Price { get; set; }
 
         [Required(ErrorMessage = "Ezt a mezőt kötelező kitölteni!")]
+        [Display(Name = "Kategória")]
         public Category Category { get; set; }
 
         /// <summary>
