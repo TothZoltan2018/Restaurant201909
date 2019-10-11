@@ -1,21 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="OopRestaurant201909.Category">
-    <Position X="5" Y="1" Width="1.5" />
+  <Class Name="OopRestaurant201909.Models.MenuItem">
+    <Position X="2" Y="2" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Category.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="OopRestaurant201909.MenuItem">
-    <Position X="3.5" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAQAgAAAAAAAAAAQAAAAAAAAAAAAAAAAACAA=</HashCode>
-      <FileName>MenuItem.cs</FileName>
+      <HashCode>AAACAAAAAQAgAgAAIAAAAAQAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Models\MenuItem.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Category" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="OopRestaurant201909.Models.Table">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OopRestaurant201909.Models.Category">
+    <Position X="5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Category.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
