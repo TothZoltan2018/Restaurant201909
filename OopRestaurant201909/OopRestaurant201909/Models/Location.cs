@@ -7,6 +7,13 @@ namespace OopRestaurant201909.Models
     /// </summary>
     public class Location
     {
+        public Location() {} //Alapertelemzett konstr az EF-nek
+
+        public Location(string name, bool isOutdoor) //Ezzel konyebb az adatfeltoltes a Configuration.cs-ben
+        {
+            Name = name;
+            IsOutdoor = isOutdoor;
+        }
         /// <summary>
         /// PK mezo az adatbazishoz
         /// </summary>
