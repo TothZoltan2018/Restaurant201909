@@ -42,7 +42,7 @@ namespace OopRestaurant201909.Migrations
             context.SaveChanges();
 
             var outdoorLocation = context.Locations
-                                        .Where(x => x.Name == "Terasz") //Az osszes sort visszaadja, maire igaz
+                                        .Where(x => x.Name == "Terasz") //Az osszes sort visszaadja, amire igaz
                                       //.Single()
                                       //.First() ha ures a lista: hiba, amugy az elso elem
                                         .FirstOrDefault(); //ha ures a lista: null
