@@ -27,9 +27,10 @@
                     <li>@Html.ActionLink("Étlap", "Index", "MenuItems")</li>
                     @if (Request.IsAuthenticated)
                     {@*A kategoriak link csak akkor latszik, ha a felhasznalo be van jelentkezve*@
-                    <li>@Html.ActionLink("Kategóriák", "Index", "Categories")</li>
-                }
-                @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        <li>@Html.ActionLink("Kategóriák", "Index", "Categories")</li>
+                    }
+                    <li>@Html.ActionLink("Termek", "Index", "Locations")</li>
+                    @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")@** ez a resz mutatja a bejelentkezessel kapcsolatos linkeket *@
             </div>
