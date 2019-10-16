@@ -8,6 +8,17 @@ namespace OopRestaurant201909.Models
 {
     public class Table
     {
+        public Table()
+        {
+
+        }
+
+        public Table(string name, Location location)
+        {
+            Name = name;
+            Location = location;
+        }
+
         /// <summary>
         /// Primary Key mezo
         /// A Code First ebbol csinalja meg a DB identity mezot
