@@ -1,0 +1,19 @@
+﻿@model OopRestaurant201909.Models.Location
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.IsOutdoor, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        <div class="checkbox">
+            @Html.EditorFor(model => model.IsOutdoor)
+            @Html.ValidationMessageFor(model => model.IsOutdoor, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>

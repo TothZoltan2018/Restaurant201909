@@ -304,6 +304,10 @@
     <Content Include="Views\Tables\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Table.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Table.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Category.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Category.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Location.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Location.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

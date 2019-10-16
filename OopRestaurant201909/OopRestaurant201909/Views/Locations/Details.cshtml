@@ -6,27 +6,11 @@
 
 <h2>Details</h2>
 
-<div>
+<div class="form-horizontal">
     <h4>Location</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    @Html.DisplayForModel()
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsOutdoor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsOutdoor)
-        </dd>
-
-    </dl>
 </div>
 <p>
     @if (Request.IsAuthenticated //csak akkor tudjuk a user-t vizsgalni, ha be vagyunk jelentkezve:
