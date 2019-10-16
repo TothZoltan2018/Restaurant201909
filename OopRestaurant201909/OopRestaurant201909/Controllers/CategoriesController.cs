@@ -38,6 +38,7 @@ namespace OopRestaurant201909.Controllers
         }
 
         // GET: Categories/Create
+        [Authorize(Roles = "Fopincer, Admin")]
         public ActionResult Create()
         {
             return View();
@@ -48,6 +49,7 @@ namespace OopRestaurant201909.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Fopincer, Admin")]
         public ActionResult Create([Bind(Include = "Id,Name")] Category category)
         {
             if (ModelState.IsValid)
@@ -61,6 +63,7 @@ namespace OopRestaurant201909.Controllers
         }
 
         // GET: Categories/Edit/5
+        [Authorize(Roles = "Fopincer, Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,6 +83,7 @@ namespace OopRestaurant201909.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Fopincer, Admin")]
         public ActionResult Edit([Bind(Include = "Id,Name")] Category category)
         {
             if (ModelState.IsValid)
@@ -92,6 +96,7 @@ namespace OopRestaurant201909.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "Fopincer, Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -109,6 +114,7 @@ namespace OopRestaurant201909.Controllers
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Fopincer, Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Category category = db.Categories.Find(id);

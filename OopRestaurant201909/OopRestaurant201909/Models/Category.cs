@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace OopRestaurant201909.Models
 {
@@ -28,11 +29,12 @@ namespace OopRestaurant201909.Models
         /// <summary>
         /// Az Id nevbol a CodeFirst tudja, hogy ez majd primary key lesz
         /// </summary>
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
         /// <summary>
         /// Az etel kategoria neve
         /// </summary>
+        [Display(Name = "A kategória neve")]
         public string Name { get; set; }
     }
 }

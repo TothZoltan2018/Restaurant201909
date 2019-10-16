@@ -12,6 +12,13 @@
     @Html.DisplayForModel()
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @if (Request.IsAuthenticated //csak akkor tudjuk a user-t vizsgalni, ha be vagyunk jelentkezve:
+    && (User.IsInRole("Admin") || User.IsInRole("Fopincer")))//Ha a User az Admin vagy a Fopincer csoporthoz tartozik:
+    {
+        <span>
+            @*div-be/span-be kell tenni, mert tobb, mint egy c# kifejezes all itt, hiszen ott van a | html elem is*@
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    </span>
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>

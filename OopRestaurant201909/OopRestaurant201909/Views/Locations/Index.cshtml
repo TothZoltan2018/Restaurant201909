@@ -5,7 +5,7 @@
 }
 
 <h2>Index</h2>
-@if (Request.IsAuthenticated //csak akkor tufjuk a user-t vizsgalni, ha be vagyunk jelentkezve:
+@if (Request.IsAuthenticated //csak akkor tudjuk a user-t vizsgalni, ha be vagyunk jelentkezve:
     && (User.IsInRole("Admin") || User.IsInRole("Fopincer")))//Ha a User az Admin vagy a Fopincer csoporthoz tartozik:
 {
     <p>
