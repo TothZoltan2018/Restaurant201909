@@ -19,6 +19,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location.Name)
+        </th>
 
         <th></th>
     </tr>
@@ -29,7 +32,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.Name)
+            </td>
+            
             <td>
                 @if (Request.IsAuthenticated //csak akkor tudjuk a user-t vizsgalni, ha be vagyunk jelentkezve:
                     && (User.IsInRole("Admin") || User.IsInRole("Fopincer")))//Ha a User az Admin vagy a Fopincer csoporthoz tartozik:

@@ -17,7 +17,9 @@ namespace OopRestaurant201909.Controllers
         // GET: Tables
         public ActionResult Index()
         {
-            return View(db.Tables.ToList());
+            return View(db.Tables
+                            .Include(x =>x.Location)
+                            .ToList());
         }
 
         // GET: Tables/Details/5
