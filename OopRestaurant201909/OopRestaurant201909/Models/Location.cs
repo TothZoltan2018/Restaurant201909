@@ -31,9 +31,14 @@ namespace OopRestaurant201909.Models
         [Display(Name = "A szabadban van?")]
         public bool IsOutdoor { get; set; }
 
-        //[NotMapped] Most viszont igenis tegyuk a DB-be! (Ezzel a TablesController nagzon egyszeru lesz, az elozo commithoz kepest!)
+        //[NotMapped] Most viszont igenis tegyuk a DB-be! (Ezzel a TablesController nagyon egyszeru lesz, az elozo commithoz kepest!)
         //Felhasznaljuk a Table-bol ide iranyulo kapcsolatot(FK), visszafele is
         //az EF automtikusan betolti az adott Location-hoz tartozo Table-ok listajat
+        //Bovebben:
+        //1. Az alabbi property is a EF CF fennhatosaga ala kerukl
+        //2. Mivel az asztaltol az ide mutato iranyba mutat kapcsolat (egy asztal (Table) egyetlen teremhez (Location) tartozik)
+        //3. ezert a teremhez visszafele is ki lehet gyujteni a hozza tartozo asztalokat.
+        //Ezzel a property-vel ezt a letezo kapcsolatot felhasznalva elerhetove tesszuk az adott teremhez tartozo asztalokat
         public List<Table> Tables { get; set; } 
     }
 }
