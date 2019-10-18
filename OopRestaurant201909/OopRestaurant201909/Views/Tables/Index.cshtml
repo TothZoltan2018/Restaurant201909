@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OopRestaurant201909.Models.Table>
+﻿@model IEnumerable<OopRestaurant201909.Models.Location>
 
 @{
     ViewBag.Title = "Index";
@@ -14,48 +14,48 @@
     </p>
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location.Name)
-        </th>
+@foreach (var location in Model)
+{
+    <h3>A @location.Name asztalai (@(location.IsOutdoor ? "Kültéri" : "Beltéri" )) </h3> @*Ez is ugyzanaz: @Html.DisplayNameFor(model => model.Name)*@
+    <table class="table">
+        @*<tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+                <h4>Asztalok</h4>
+            </th>
+            <th></th>
+        </tr>*@
 
-        <th></th>
-    </tr>
+        @foreach (var item in location.Tables)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @if (Request.IsAuthenticated //csak akkor tudjuk a user-t vizsgalni, ha be vagyunk jelentkezve:
+                        && (User.IsInRole("Admin") || User.IsInRole("Fopincer")))//Ha a User az Admin vagy a Fopincer csoporthoz tartozik:
+                    {
+                        <span>
+                            @*div-be/span-be kell tenni, mert tobb, mint egy c# kifejezes all itt, hiszen ott van a | html elem is*@
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        </span>
+                    }
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location.Name)
-            </td>
-            
-            <td>
-                @if (Request.IsAuthenticated //csak akkor tudjuk a user-t vizsgalni, ha be vagyunk jelentkezve:
-                    && (User.IsInRole("Admin") || User.IsInRole("Fopincer")))//Ha a User az Admin vagy a Fopincer csoporthoz tartozik:
-                {
-                    <span>
-                        @*div-be/span-be kell tenni, mert tobb, mint egy c# kifejezes all itt, hiszen ott van a | html elem is*@
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                </span>
-            }
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-                @if (Request.IsAuthenticated //csak akkor tudjuk a user-t vizsgalni, ha be vagyunk jelentkezve:
-                    && (User.IsInRole("Admin") || User.IsInRole("Fopincer")))//Ha a User az Admin vagy a Fopincer csoporthoz tartozik:
-                {
-                    <span>
-                        @*div-be/span-be kell tenni, mert tobb, mint egy c# kifejezes all itt, hiszen ott van a | html elem is*@
-                    | @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </span>
-            }
-            </td>
-        </tr>
-    }
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
 
-</table>
+                    @if (Request.IsAuthenticated //csak akkor tudjuk a user-t vizsgalni, ha be vagyunk jelentkezve:
+                        && (User.IsInRole("Admin") || User.IsInRole("Fopincer")))//Ha a User az Admin vagy a Fopincer csoporthoz tartozik:
+                    {
+                        <span>
+                            @*div-be/span-be kell tenni, mert tobb, mint egy c# kifejezes all itt, hiszen ott van a | html elem is*@
+                            | @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </span>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+

@@ -57,10 +57,12 @@ namespace OopRestaurant201909.Migrations
                 throw new Exception($"Nincs megfelelo Location az adatbazisban");
             }
 
-            context.Tables.AddOrUpdate(x => x.Name, new Table() { Name = "Bal-2", Location = outdoorLocation });
+            context.Tables.AddOrUpdate(x => x.Name, new Table() { Name = "Terasz-1", Location = outdoorLocation });
+            context.Tables.AddOrUpdate(x => x.Name, new Table() { Name = "Terasz-2", Location = outdoorLocation });
             context.Tables.AddOrUpdate(x => x.Name, new Table("Belso-1", indoorLocationBelsoTerem));
             context.Tables.AddOrUpdate(x => x.Name, new Table("Belso-2", indoorLocationBelsoTerem));
             context.Tables.AddOrUpdate(x => x.Name, new Table("Nagy-1", indoorLocationNagyTerem));
+            context.Tables.AddOrUpdate(x => x.Name, new Table("Nagy-2", indoorLocationNagyTerem));
             context.SaveChanges();
         }
     }

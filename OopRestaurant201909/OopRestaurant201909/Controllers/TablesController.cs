@@ -17,9 +17,22 @@ namespace OopRestaurant201909.Controllers
         // GET: Tables
         public ActionResult Index()
         {
-            return View(db.Tables
-                            .Include(x =>x.Location)
-                            .ToList());
+            var tables = db.Tables
+                           .Include(x => x.Location)
+                           //.OrderBy(x => x.Location.IsOutdoor) //utana ugy is szurjuk, igy minek sorbarendezni...
+                           .ToList(); //Az EF csak a ToList hatasara fog tenyleges adatbazis adatlekerest vegrehajtani!
+            //elkeszitjuk a ViewModel-t
+            //1. kelleni fog a termek listaja
+            var locations = db.Locations.ToList();
+            
+            foreach (var location in locations)
+            {
+                location.Tables = tables.Where(x =>x.Location.Id == location.Id)
+                                        .ToList();
+            }
+
+            //majd ezt elkuldjuk a nezethez
+            return View(locations);
         }
 
         // GET: Tables/Details/5
