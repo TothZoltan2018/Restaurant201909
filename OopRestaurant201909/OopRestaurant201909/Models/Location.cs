@@ -31,7 +31,9 @@ namespace OopRestaurant201909.Models
         [Display(Name = "A szabadban van?")]
         public bool IsOutdoor { get; set; }
 
-        [NotMapped]
-        public List<Table> Tables { get; internal set; }
+        //[NotMapped] Most viszont igenis tegyuk a DB-be! (Ezzel a TablesController nagzon egyszeru lesz, az elozo commithoz kepest!)
+        //Felhasznaljuk a Table-bol ide iranyulo kapcsolatot(FK), visszafele is
+        //az EF automtikusan betolti az adott Location-hoz tartozo Table-ok listajat
+        public List<Table> Tables { get; set; } 
     }
 }

@@ -31,6 +31,6 @@ namespace OopRestaurant201909.Models
         public string Name { get; set; }
 
         [Required]
-        public Location Location { get; set; }
+        public Location Location { get; set; } //Foreign Key
     }
 }
