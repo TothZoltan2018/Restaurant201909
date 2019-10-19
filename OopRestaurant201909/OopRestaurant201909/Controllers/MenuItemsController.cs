@@ -100,7 +100,7 @@ namespace OopRestaurant201909.Controllers
                     //A html formrol jovo adatokat bemutatjuk az adatbazisnak
                     db.MenuItems.Attach(menuItem);
 
-                    //az adatbazissal kapocsolatos dolgok eleresehez kell az entry
+                    //az adatbazissal kapcsolatos dolgok eleresehez kell az entry
                     var entry = db.Entry(menuItem);
 
                     //ennek segitsegevel betoltjuk a Category tabla adatait a menuItem.Category property-be

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
+using System.Data.Entity; 
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -13,6 +13,103 @@ namespace OopRestaurant201909.Controllers
     public class TablesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        private Table ReadOrNewTable(int? id, ReadOrNewOperation op)
+        {
+            Table table;
+
+            switch (op)
+            {
+                case ReadOrNewOperation.Read:
+                    table = db.Tables.Find(id);
+                    if (table == null)
+                    {
+                        return null;
+                    }
+
+                    //Szolni kell az EF-nek, hogy az asztalhoz toltse be a termet is.
+                    db.Entry(table)
+                        .Reference(x => x.Location)
+                        .Load();
+                    break;
+                case ReadOrNewOperation.New:
+                    table = new Table();
+                    break;
+                default:
+                    throw new Exception($"Erre a muveletre nem vagyunk felkeszulve: {op}");
+            }
+
+            //A lenyilo mezo adatainak kitoltese
+            //?: felteteles null operator:
+            //      ha eddig a kifejezes ertekes null, akkor megall, es a vegeredmeny null
+            //      ha pedig nem null, akkor folytatodik a kiertekeles, es megy tovabb
+
+            //ugyanaz, mint ez:
+            //int? eredmeny;
+            //if (table.Location == null)
+            //{
+            //    eredmeny = null;
+            //}
+            //else
+            //{
+            //    eredmeny = table.Location.Id;
+            //}
+
+            //??: null operator: ha a bal oldalan szereplo ertek null, akkor az ererdmeny a jobb oldalan szereplo ertek
+            //ugyanaz, mint ez:
+
+            //if (eredmeny == null)
+            //{
+            //    eredmeny = 0;
+            //}
+
+            table.LocationId = table.Location?.Id ?? 0;
+            LoadAssignableLocations(table);
+
+            return table;
+        }
+
+        private void LoadAssignableLocations(Table table)
+        {
+            table.AssignableLocations = new SelectList(db.Locations.ToList(), "Id", "Name");
+        }
+
+        private void CreateUpdateOrDeleteTable(Table table, CreateUpdateOrDeleteOperation op)
+        {
+            switch (op)
+            {
+                case CreateUpdateOrDeleteOperation.Create:
+                    //a kivalasztott termet is be kell allitani
+                    table.Location = db.Locations.Find(table.LocationId); //table.LocationId: A lenyilo kivalasztott erteke
+                    db.Tables.Add(table);
+                    break;
+                case CreateUpdateOrDeleteOperation.Update:
+                    //a kivalasztott termet is be kell allitani
+
+                    //1. Be kell mutatni a modellt az adatbazisnak
+                    db.Tables.Attach(table);
+
+                    //2. Be kell tolteni a hozzatartozo eredeti teremadatokat
+                    db.Entry(table)                     //kerem az EF adatbazist elero reszet
+                        .Reference(x => x.Location)     //kerem a csatlakozo tabalk kozul a Location-t
+                        .Load();                        //Onnan betoltom az adatokat
+
+                    //3. Modositani kell az uj terem adatot a lenyilo mezobol
+                    table.Location = db.Locations.Find(table.LocationId);
+
+                    //4. Jelezni kell, hogy valtozott, igy a tobbi ertek (Name, stb.) valtozast is figyelembe veszi az EF
+                    db.Entry(table).State = EntityState.Modified;
+
+                    
+                    break;
+                case CreateUpdateOrDeleteOperation.Delete:
+                    db.Tables.Remove(table);
+                    break;
+                default:
+                    throw new Exception($"Erre a muveletre nem vagyunk felkeszulve: {op}");
+            }
+            
+        }
 
         // GET: Tables
         public ActionResult Index()
@@ -34,7 +131,7 @@ namespace OopRestaurant201909.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table table = db.Tables.Find(id);
+            Table table = ReadOrNewTable(id, ReadOrNewOperation.Read);
             if (table == null)
             {
                 return HttpNotFound();
@@ -42,11 +139,14 @@ namespace OopRestaurant201909.Controllers
             return View(table);
         }
 
+
         // GET: Tables/Create
         [Authorize(Roles = "Fopincer, Admin")]
         public ActionResult Create()
         {
-            return View();
+            var table = ReadOrNewTable(null, ReadOrNewOperation.New);
+
+            return View(table);
         }
 
         // POST: Tables/Create
@@ -55,14 +155,20 @@ namespace OopRestaurant201909.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Fopincer, Admin")]
-        public ActionResult Create([Bind(Include = "Id,Name")] Table table)
+        public ActionResult Create([Bind(Include = "Id,Name,LocationId")] Table table)
         {
+            CreateUpdateOrDeleteTable(table, CreateUpdateOrDeleteOperation.Create);
+
+            ModelState.Clear();
+            TryValidateModel(table);
+
             if (ModelState.IsValid)
-            {
-                db.Tables.Add(table);
+            {                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            LoadAssignableLocations(table);
 
             return View(table);
         }
@@ -75,7 +181,7 @@ namespace OopRestaurant201909.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table table = db.Tables.Find(id);
+            Table table = ReadOrNewTable(id, ReadOrNewOperation.Read);
             if (table == null)
             {
                 return HttpNotFound();
@@ -89,16 +195,24 @@ namespace OopRestaurant201909.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Fopincer, Admin")]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Table table)
+        public ActionResult Edit([Bind(Include = "Id,Name,LocationId")] Table table)
         {
+            CreateUpdateOrDeleteTable(table, CreateUpdateOrDeleteOperation.Update);
+
+            ModelState.Clear();
+            TryValidateModel(table);
+
             if (ModelState.IsValid)
-            {
-                db.Entry(table).State = EntityState.Modified;
+            {                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            //Ha nem sikerult a validacio, akkor mielott visszamegy a nezetre, be kell toltenunk a lenyilo erteket
+            LoadAssignableLocations(table);
             return View(table);
         }
+
 
         // GET: Tables/Delete/5
         [Authorize(Roles = "Fopincer, Admin")]
@@ -108,7 +222,7 @@ namespace OopRestaurant201909.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table table = db.Tables.Find(id);
+            Table table = ReadOrNewTable(id, ReadOrNewOperation.Read);
             if (table == null)
             {
                 return HttpNotFound();
@@ -123,7 +237,7 @@ namespace OopRestaurant201909.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Table table = db.Tables.Find(id);
-            db.Tables.Remove(table);
+            CreateUpdateOrDeleteTable(table, CreateUpdateOrDeleteOperation.Delete);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

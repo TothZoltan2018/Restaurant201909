@@ -22,7 +22,7 @@ namespace OopRestaurant201909.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name="Megnevezés")]
+        [Display(Name="A helyiség")]
         public string Name { get; set; }
 
         /// <summary>
