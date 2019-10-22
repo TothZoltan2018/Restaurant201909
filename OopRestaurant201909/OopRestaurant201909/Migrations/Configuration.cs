@@ -2,6 +2,8 @@ using OopRestaurant201909.Models;
 
 namespace OopRestaurant201909.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     //using Models;
     using System;
     using System.Data.Entity;
@@ -64,6 +66,51 @@ namespace OopRestaurant201909.Migrations
             context.Tables.AddOrUpdate(x => x.Name, new Table("Nagy-1", indoorLocationNagyTerem));
             context.Tables.AddOrUpdate(x => x.Name, new Table("Nagy-2", indoorLocationNagyTerem));
             context.SaveChanges();
+
+            //Csoportok felvitele: Admin, Pincer, Fopincer
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            AddRoleIfNotExists(context, "Admin", roleManager);
+            AddRoleIfNotExists(context, "Pincer", roleManager);
+            AddRoleIfNotExists(context, "Fopincer", roleManager);
+            //AddRoleIfNotExist(context, "Penztaros", manager);
+
+            //Felhasznalok felvitele: Admin@abcd.hu, pincer@abcd.hu, fopincer@abcd.hu
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            AddUserIfNotExists(context, "Admin@abcd.hu", "Admin@abcd.hu", "Admin", "123456aA#", userManager);
+            AddUserIfNotExists(context, "TZ@abcd.hu", "TZ@abcd.hu", "Admin", "123456aA#", userManager);
+
+            AddUserIfNotExists(context, "pincer@abcd.hu", "pincer@abcd.hu", "pincer", "123456aA#", userManager);
+            AddUserIfNotExists(context, "fopincer@abcd.hu", "fopincer@abcd.hu", "fopincer", "123456aA#", userManager);
+
+        }
+
+        private static void AddUserIfNotExists(ApplicationDbContext context, string userName, string userEmail, string roleName, string password, UserManager<ApplicationUser> userManager)
+        {
+            if (!context.Users.Any(x => x.Email == userEmail))
+            {//ha meg nincs ilyen user, akkor letrehozzuk
+                var user = new ApplicationUser()
+                {
+                    Email = userEmail,
+                    UserName = userName
+                };
+                //Elmentjuk a felhasznalot az Identity adatbazisaba
+                userManager.Create(user, password);
+                //A felhasznalot hozzaadjuk a megfeleleo csoporthoz
+                userManager.AddToRole(user.Id, roleName);
+            }
+        }
+
+                private static void AddRoleIfNotExists(ApplicationDbContext context, string roleName, RoleManager<IdentityRole> roleManager)
+        {
+            if (!context.Roles.Any(x => x.Name == roleName))
+            {//ha meg nincs ilyen csoport, akkor letrehozzuk
+                var role = new IdentityRole(roleName);
+                roleManager.Create(role);
+            }
         }
     }
 }
